@@ -59,7 +59,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe 
 .tx-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
 .tx-item{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:10px;background:#fbfcff;border:1px solid #f1f5f9}
 .tx-left{display:flex;gap:12px;align-items:center}
-.tx-icon{width:44px;height:44;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.tx-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center}
 .tx-content small{display:block;color:var(--muted);font-size:13px}
 .tx-amount{font-weight:700;color:#ef4444}
 
@@ -119,68 +119,79 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe 
   .export-btn{padding:10px 12px;font-size:13px}
 }
 
-/* responsive */
-    @media (max-width:1100px){
-    .grid-top{grid-template-columns:1fr 1fr;grid-auto-rows:minmax(120px,auto)}
-    .grid-bottom{grid-template-columns:1fr}
-    .sidebar{display:none}
-    .main{padding:18px}
-    }
+/* --- Início da seção responsiva (substituir a seção antiga) --- */
 
-    /* responsividade: sidebar off-canvas para mobile */
-    @media (min-width:720px){
-    /* garantir que o botão de menu (hamburger) só apareça em mobile */
-    .hamburger{ display:none; } /* escondido por padrão (desktop) */
+/* garantir que o hamburger e overlay não apareçam no desktop por padrão */
+.hamburger{ display:none; }
+#mobileOverlay, .mobile-overlay{ display:none; visibility:hidden; }
 
-    /* Mobile / drawer specific */
-    @media (max-width:720px){
-      /* mostrar hamburger apenas em telas pequenas */
-      .hamburger{
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        width:44px;
-        height:44px;
-        border-radius:8px;
-        border:0;
-        background:transparent;
-        cursor:pointer;
-        color:var(--muted);
-        margin-right:8px;
-      }
+/* ajuste geral para telas menores */
+@media (max-width:1100px){
+  /* grid responsivo */
+  .grid-top{grid-template-columns:1fr 1fr;grid-auto-rows:minmax(120px,auto)}
+  .grid-bottom{grid-template-columns:1fr}
+  .main{padding:18px}
 
-      /* transformar sidebar em drawer sem esconder no desktop */
-      .sidebar{
-        position:fixed;
-        left:-320px;
-        top:0;
-        height:100vh;
-        width:260px;
-        z-index:1201;
-        transition:left .28s ease,transform .28s ease;
-        box-shadow:0 20px 40px rgba(6,10,20,0.25);
-        background:var(--sidebar-bg);
-        will-change:left;
-      }
-      .sidebar.open{ left:0; }
+  /* hamburger visível em mobile */
+  .hamburger{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
+    border-radius:8px;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+    color:var(--muted);
+    margin-right:8px;
+  }
 
-      /* overlay para mobile (visível apenas em mobile) */
-      .mobile-overlay{
-        position:fixed;
-        inset:0;
-        background:rgba(6,10,20,0.36);
-        z-index:1200;
-        display:none;
-      }
-      .mobile-overlay.show{ display:block; }
+  /* sidebar vira drawer off-canvas */
+  .sidebar{
+    position:fixed;
+    left:-320px;
+    top:0;
+    height:100vh;
+    width:260px;
+    z-index:1201;
+    transition:left .28s ease,transform .28s ease;
+    box-shadow:0 20px 40px rgba(6,10,20,0.25);
+    background:var(--sidebar-bg);
+    will-change:left;
+  }
+  .sidebar.open{ left:0; }
 
-      /* quando drawer aberto, evitar scroll no body */
-      body.drawer-open{ overflow:hidden; }
+  /* overlay para sombrear conteúdo quando drawer aberto */
+  .mobile-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(6,10,20,0.36);
+    z-index:1200;
+    display:none;
+  }
+  .mobile-overlay.show, #mobileOverlay.show{ display:block; visibility:visible; }
 
-      /* ajustes responsivos adicionais */
-      .main{ padding:18px; margin-left:0; }
-    }
+  /* evitar scroll do body quando drawer aberto */
+  body.drawer-open{ overflow:hidden; }
+
+  /* ajustar toolbar e FAB para mobile */
+  .export-toolbar{ gap:8px; }
+  .fab-export{ right:18px; bottom:18px; }
 }
+
+/* pequenos ajustes para telas muito pequenas */
+@media (max-width:700px){
+  .export-toolbar{flex-direction:column;align-items:flex-end}
+  .export-btn{padding:10px 12px;font-size:13px}
+  .det-item{grid-template-columns:1fr;gap:6px}
+  .det-right{text-align:left}
+  .add-form{flex-direction:column;align-items:stretch}
+  .add-form input,.add-form select{width:100%}
+}
+
+/* --- Fim da seção responsiva --- */
+
 /* adicionado: estilos para extrato detalhado */
 .det-list{display:flex;flex-direction:column;gap:8px;max-height:560px;overflow:auto;padding-right:6px}
 .det-item{display:grid;grid-template-columns:110px 1fr 140px;gap:12px;align-items:center;padding:12px;border-radius:10px;background:#fbfcff;border:1px solid #f1f5f9}
