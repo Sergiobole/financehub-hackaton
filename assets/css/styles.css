@@ -14,7 +14,23 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--text);background:var(--bg)}
-.app{display:flex;min-height:100vh}
+.app{ display:flex; align-items:stretch; min-height:100vh; }
+.sidebar{
+  flex: 0 0 260px;   /* fixa largura da sidebar no layout flex */
+  width: 260px;
+  position: relative; /* garante fluxo normal em desktop */
+  box-sizing: border-box;
+}
+.main{
+  flex: 1 1 auto;
+  min-width: 0;      /* evita overflow horizontal em flex */
+  margin: 0;
+  padding: 28px 32px; /* mantém padding existente */
+  box-sizing: border-box;
+}
+.header{ width:100%; box-sizing:border-box; }
+/* defesa: remover margens indesejadas que possam criar coluna em branco */
+body, html{margin:0;padding:0;}
 
 /* SIDEBAR */
 .sidebar{width:260px;background:var(--sidebar-bg);border-right:1px solid var(--sidebar-border);display:flex;flex-direction:column;justify-content:space-between;padding:20px}
