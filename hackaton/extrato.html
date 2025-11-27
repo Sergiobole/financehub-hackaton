@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Extrato — FinanceHub</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">FH</div>
+        <div class="brand-text">
+          <strong>FinanceHub</strong>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-item" href="index.html"><span data-feather="bar-chart-2"></span> Dashboard</a>
+        <a class="nav-item active" href="extrato.html"><span data-feather="file-text"></span> Extrato</a>
+        <a class="nav-item" href="index.html"><span data-feather="grid"></span> PIX</a>
+        <a class="nav-item" href="index.html"><span data-feather="credit-card"></span> Cartões</a>
+        <a class="nav-item" href="index.html"><span data-feather="shield"></span> Seguros</a>
+        <a class="nav-item" href="index.html"><span data-feather="dollar-sign"></span> Empréstimos</a>
+        <a class="nav-item" href="index.html"><span data-feather="gift"></span> Cashback</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <img class="avatar" src="https://i.pravatar.cc/40?img=47" alt="avatar">
+        <div class="user-info">
+          <div class="user-name">Maria Silva</div>
+          <div class="user-email">maria@email.com</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="header">
+        <div>
+          <h1>Extrato</h1>
+          <p class="subtitle">Lista detalhada de todas as movimentações</p>
+        </div>
+        <div class="header-actions">
+          <!-- Export toolbar destacado -->
+          <div class="export-toolbar no-print" role="group" aria-label="Exportar e imprimir">
+            <button id="exportCsv" class="export-btn csv" title="Exportar CSV">
+              <span data-feather="download"></span>
+              <span class="label">Exportar CSV</span>
+            </button>
+
+            <button id="exportPdf" class="export-btn pdf" title="Exportar PDF">
+              <span data-feather="file-text"></span>
+              <span class="label">Exportar PDF</span>
+            </button>
+
+            <button id="printBtn" class="export-btn print" title="Imprimir extrato">
+              <span data-feather="printer"></span>
+              <span class="label">Imprimir</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="card">
+        <!-- cabeçalho de impressão / comprovante -->
+        <div class="print-header">
+          <div class="brand-block">
+            <div class="logo" style="width:56px;height:56px;border-radius:8px;font-size:18px">FH</div>
+            <div>
+              <div class="bank-name">FinanceHub Bank</div>
+              <div class="bank-meta">Extrato de Conta Corrente • 0001 234567-8</div>
+            </div>
+          </div>
+
+          <div class="account-info no-print">
+            <div>Titular: <strong id="printHolder">Maria Silva</strong></div>
+            <div>CPF: <strong id="printCPF">000.000.000-00</strong></div>
+            <div>Período: <strong id="printPeriod">Todos</strong></div>
+          </div>
+        </div>
+
+        <!-- controles (não impressos) -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="display:flex;gap:8px;align-items:center">
+            <input id="searchInput" class="no-print" type="search" placeholder="Pesquisar descrição ou estabelecimento" style="padding:8px 12px;border-radius:8px;border:1px solid #eef2f7">
+            <select id="filterType" class="no-print" style="padding:8px 12px;border-radius:8px;border:1px solid #eef2f7">
+              <option value="all">Todos</option>
+              <option value="inflow">Receitas</option>
+              <option value="outflow">Despesas</option>
+            </select>
+          </div>
+
+          <div style="color:var(--muted)">Saldo atual: <strong id="currentBalance">R$ 0,00</strong></div>
+        </div>
+
+        <!-- formulário de inclusão (não impresso) -->
+        <form id="addTxForm" class="add-form no-print" style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+          <input id="addDate" type="datetime-local" style="padding:8px;border-radius:8px;border:1px solid #eef2f7">
+          <input id="addAmount" type="number" step="0.01" placeholder="Valor (use negativo para despesas)" style="padding:8px;border-radius:8px;border:1px solid #eef2f7;width:160px">
+          <select id="addCategory" style="padding:8px;border-radius:8px;border:1px solid #eef2f7">
+          </select>
+          <input id="addDescription" type="text" placeholder="Descrição / Estabelecimento" style="padding:8px;border-radius:8px;border:1px solid #eef2f7;flex:1;min-width:200px">
+          <button type="submit" class="btn primary" style="white-space:nowrap">Adicionar</button>
+          <div id="addMsg" style="margin-left:8px;color:var(--muted);font-size:13px"></div>
+        </form>
+
+        <!-- área do extrato: tabela profissional -->
+        <div id="detList" class="det-list" aria-live="polite">
+          <!-- tabela será renderizada aqui pela especificação JS -->
+        </div>
+
+        <div class="det-footer">
+          <div>Total receitas: <span id="totalInflow">R$ 0,00</span></div>
+          <div>Total despesas: <span id="totalOutflow">R$ 0,00</span></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- botão flutuante de export (aparece em telas pequenas para destaque) -->
+  <button id="fabExport" class="fab-export no-print" title="Exportar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  </button>
+  <script>
+    // comportamento rápido do FAB (abre opções rapidamente)
+    document.addEventListener('DOMContentLoaded', () => {
+      const fab = document.getElementById('fabExport');
+      if (!fab) return;
+      fab.addEventListener('click', () => {
+        // em mobile mostra rapidamente as opções nativas (tenta abrir exportPdf)
+        const pdfBtn = document.getElementById('exportPdf');
+        if (pdfBtn) pdfBtn.scrollIntoView({behavior:'smooth',block:'center'});
+        // destaca visualmente
+        fab.animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:320});
+      });
+    });
+  </script>
+
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/extrato.js"></script>
+  <script>feather.replace()</script>
+</body>
+</html>
