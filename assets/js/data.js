@@ -50,14 +50,24 @@
     }).sort((a,b)=>b.amount-a.amount);
     return result;
   }
-  function computeCashback(rate = 0.015){
-    // simples: cashback = rate * total despesas
-    const totals = computeTotals();
-    const totalOutflowAbs = Math.abs(totals.outflow);
-    const total = parseFloat((totalOutflowAbs * rate).toFixed(2));
-    // divisão mock: este mês 36% e parceiros restante
+  function computeCashback(rate = 0.015) {
+    // 1. Calcula o total de cashback ganho com base em todas as despesas
+    const totalEarned = TRANSACTIONS
+      .filter(t => t.amount < 0)
+      .reduce((sum, t) => sum + (Math.abs(t.amount) * rate), 0);
+
+    // 2. Calcula o total de cashback já resgatado
+    const totalRedeemed = TRANSACTIONS
+      .filter(t => t.description === 'Resgate de Cashback')
+      .reduce((sum, t) => sum + t.amount, 0);
+
+    // 3. O total disponível é a diferença
+    const total = parseFloat(Math.max(0, totalEarned - totalRedeemed).toFixed(2));
+
+    // A divisão mock pode ser mantida se for usada em outro lugar
     const thisMonth = parseFloat((total * 0.36).toFixed(2));
     const partners = parseFloat((total - thisMonth).toFixed(2));
+
     return { total, thisMonth, partners };
   }
 

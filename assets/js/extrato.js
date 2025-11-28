@@ -47,10 +47,10 @@ function renderDetList(transactions){
     const sign = tx.amount < 0 ? '-' : '';
     return `
       <tr>
-        <td class="col-date">${datePart} <div style="color:var(--muted);font-size:12px">${timePart}</div></td>
-        <td class="col-desc"><strong>${tx.description}</strong><div style="color:var(--muted);font-size:13px">${tx.merchant || ''}</div></td>
-        <td class="col-cat">${tx.category || '—'}</td>
-        <td class="col-amount"><span class="amount ${type}">${sign}R$ ${amt}</span></td>
+        <td class="col-date" data-label="Data">${datePart} <div style="color:var(--muted);font-size:12px">${timePart}</div></td>
+        <td class="col-desc" data-label="Descrição"><strong>${tx.description}</strong><div style="color:var(--muted);font-size:13px">${tx.merchant || ''}</div></td>
+        <td class="col-cat" data-label="Categoria">${tx.category || '—'}</td>
+        <td class="col-amount" data-label="Valor"><span class="amount ${type}">${sign}R$ ${amt}</span></td>
       </tr>
     `;
   }).join('');
