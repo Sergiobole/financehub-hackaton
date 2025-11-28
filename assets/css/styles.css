@@ -17,18 +17,23 @@
 html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; color:var(--text); background:var(--bg); }
 
 /* LAYOUT BASE */
-.app{ display:flex; align-items:stretch; min-height:100vh; }
-.sidebar{
+.app{ display:flex; align-items:stretch; min-height:100vh; margin-left:260px; }
+.sidebar {
   flex: 0 0 260px;
   width: 260px;
-  position: relative;
-  background:var(--sidebar-bg);
-  border-right:1px solid var(--sidebar-border);
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  padding:20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
   box-sizing: border-box;
+  z-index: 1000;
+  overflow-y: auto;
 }
 .main{
   flex: 1 1 auto;
@@ -245,9 +250,7 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
     height:100vh;
     width:260px;
     z-index:1201;
-    transition:left .28s ease,transform .28s ease;
-    box-shadow:0 20px 40px rgba(6,10,20,0.25);
-    will-change:left;
+    transition:left .28s ease;
   }
   .sidebar.open{ left:0; }
 
@@ -287,7 +290,7 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
   .det-table thead th{ background:#f7f7f7; }
 }
 
-/* === SEÇÃO EMPRÉSTIMOS - DESIGN PROFISSIONAL (OTIMIZADO) === */
+/* === SEÇÃO EMPRÉSTIMOS - DESIGN PROFISSIONAL (LAYOUT FIXO NA PÁGINA) === */
 
 .loan-intro{
   background:linear-gradient(135deg,rgba(107,70,255,0.08),rgba(6,182,212,0.08));
@@ -313,25 +316,47 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
   line-height:1.5;
 }
 
+.loan-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+/* CARD FORMULÁRIO E RESULTADO - LADO A LADO */
+.loan-form-card{
+  background:var(--panel);
+  padding:16px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.loan-result-card{
+  background:var(--panel);
+  padding:16px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
 .card-header-loan{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:16px;
-  padding-bottom:12px;
+  margin-bottom:14px;
+  padding-bottom:10px;
   border-bottom:1px solid #eef2f7;
 }
 .card-header-loan h2{
   margin:0;
-  font-size:16px;
+  font-size:15px;
   font-weight:700;
 }
 .badge-info, .result-badge{
   background:#f0f4ff;
   color:var(--accent);
-  padding:4px 10px;
+  padding:3px 8px;
   border-radius:6px;
-  font-size:11px;
+  font-size:10px;
   font-weight:600;
 }
 .result-badge.green{
@@ -354,28 +379,28 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
   box-shadow:0 0 0 3px rgba(107,70,255,0.08);
 }
 .input-prefix, .input-suffix{
-  padding:8px 10px;
+  padding:6px 8px;
   color:var(--muted);
   font-weight:600;
   background:#fbfcff;
-  font-size:13px;
+  font-size:12px;
 }
 .input-wrapper input{
   flex:1;
   border:none;
-  padding:8px 10px;
-  font-size:13px;
+  padding:6px 8px;
+  font-size:12px;
   background:transparent;
   outline:none;
 }
 
 /* Sliders com estilo */
 .slider-wrapper{
-  margin-top:8px;
+  margin-top:6px;
 }
 .slider-wrapper input[type="range"]{
   width:100%;
-  height:6px;
+  height:5px;
   border-radius:3px;
   background:linear-gradient(to right,#e0e7ff 0%,#cffafe 100%);
   outline:none;
@@ -384,41 +409,41 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
 .slider-wrapper input[type="range"]::-webkit-slider-thumb{
   -webkit-appearance:none;
   appearance:none;
-  width:16px;
-  height:16px;
+  width:14px;
+  height:14px;
   border-radius:50%;
   background:var(--accent);
   cursor:pointer;
-  box-shadow:0 2px 8px rgba(107,70,255,0.3);
+  box-shadow:0 2px 6px rgba(107,70,255,0.3);
 }
 .slider-wrapper input[type="range"]::-moz-range-thumb{
-  width:16px;
-  height:16px;
+  width:14px;
+  height:14px;
   border-radius:50%;
   background:var(--accent);
   cursor:pointer;
   border:none;
-  box-shadow:0 2px 8px rgba(107,70,255,0.3);
+  box-shadow:0 2px 6px rgba(107,70,255,0.3);
 }
 .slider-labels{
   display:flex;
   justify-content:space-between;
-  margin-top:6px;
+  margin-top:4px;
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
 }
 
-/* Form groups compactos */
+/* Form groups MUITO COMPACTOS */
 .form-group{ 
-  margin-bottom:14px;
+  margin-bottom:10px;
   display:flex; 
   flex-direction:column; 
 }
 .form-group label{ 
   font-weight:600; 
-  margin-bottom:4px; 
+  margin-bottom:3px; 
   color:var(--text);
-  font-size:13px;
+  font-size:12px;
 }
 
 /* Resultado Grid COMPACTO */
@@ -426,25 +451,25 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:16px;
-  padding-bottom:12px;
+  margin-bottom:12px;
+  padding-bottom:10px;
   border-bottom:1px solid #eef2f7;
 }
 .result-header h3{
   margin:0;
-  font-size:14px;
+  font-size:13px;
   font-weight:700;
 }
 
 .result-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:16px;
+  gap:10px;
+  margin-bottom:12px;
 }
 .result-box{
-  padding:12px;
-  border-radius:8px;
+  padding:10px;
+  border-radius:6px;
   background:#fbfcff;
   border:1px solid #eef2f7;
   transition:all .12s ease;
@@ -455,43 +480,43 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
 }
 .result-box:hover{
   border-color:var(--accent);
-  box-shadow:0 4px 12px rgba(107,70,255,0.06);
+  box-shadow:0 2px 8px rgba(107,70,255,0.04);
 }
 .result-label{
-  font-size:10px;
+  font-size:9px;
   color:var(--muted);
   font-weight:600;
   text-transform:uppercase;
-  letter-spacing:0.5px;
-  margin-bottom:6px;
-}
-.result-value{
-  font-size:18px;
-  font-weight:800;
-  color:var(--text);
+  letter-spacing:0.3px;
   margin-bottom:4px;
 }
+.result-value{
+  font-size:16px;
+  font-weight:800;
+  color:var(--text);
+  margin-bottom:3px;
+}
 .result-hint{
-  font-size:10px;
+  font-size:9px;
   color:var(--muted);
 }
 
 .result-summary-line{
-  padding:12px;
+  padding:10px;
   background:linear-gradient(135deg,#f0f4ff,#f5f9ff);
-  border-radius:8px;
+  border-radius:6px;
   border-left:3px solid var(--accent);
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 .result-summary-line strong{
   display:block;
   color:var(--text);
   margin-bottom:2px;
-  font-size:13px;
+  font-size:12px;
 }
 .result-summary-line small{
   display:block;
-  font-size:11px;
+  font-size:10px;
 }
 
 /* Botão simulação */
@@ -499,14 +524,27 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:8px;
-  font-size:14px !important;
-  padding:10px 14px !important;
+  gap:6px;
+  font-size:13px !important;
+  padding:9px 12px !important;
+  width:100%;
 }
 
 /* Tabela amortização profissional */
 .loan-amortization{
-  margin-top:24px;
+  margin-top:20px;
+}
+.loan-amortization h2{
+  font-size:15px;
+  margin:0 0 12px 0;
+}
+.amort-table{ font-size:12px; }
+.amort-table thead th{ 
+  padding:8px; 
+  font-size:11px;
+}
+.amort-table tbody td{ 
+  padding:8px; 
 }
 .amort-table tbody tr.alt{
   background:#fbfcff;
@@ -514,57 +552,54 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
 .amort-table tbody tr:hover{
   background:#f0f4ff;
 }
-.amort-table{ font-size:13px; }
-.amort-table thead th{ padding:10px; }
-.amort-table tbody td{ padding:10px; }
 
 /* Comparador de cenários */
 .loan-comparator{
-  margin-top:24px;
+  margin-top:20px;
 }
 .loan-comparator h2{
-  font-size:16px;
-  margin-bottom:16px;
+  font-size:15px;
+  margin:0 0 12px 0;
 }
 .comparator-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-  gap:12px;
+  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+  gap:10px;
 }
 .comparator-card{
-  padding:12px;
+  padding:10px;
   border:1px solid #eef2f7;
-  border-radius:8px;
+  border-radius:6px;
   background:#fbfcff;
   transition:all .12s ease;
-  font-size:12px;
+  font-size:11px;
 }
 .comparator-card:hover{
   border-color:var(--accent);
-  box-shadow:0 6px 16px rgba(107,70,255,0.08);
-  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(107,70,255,0.06);
+  transform:translateY(-1px);
 }
 .comp-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:10px;
-  padding-bottom:8px;
+  margin-bottom:8px;
+  padding-bottom:6px;
   border-bottom:1px solid #e6eef6;
 }
 .comp-header strong{
   color:var(--accent);
-  font-size:12px;
+  font-size:11px;
 }
 .btn-close{
   background:none;
   border:none;
-  font-size:18px;
+  font-size:16px;
   color:var(--muted);
   cursor:pointer;
   padding:0;
-  width:20px;
-  height:20px;
+  width:18px;
+  height:18px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -576,8 +611,8 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:6px 0;
-  font-size:11px;
+  padding:4px 0;
+  font-size:10px;
   border-bottom:1px solid #f1f5f9;
 }
 .comp-item span{
@@ -586,46 +621,72 @@ html,body{ height:100%; margin:0; padding:0; font-family:Inter,system-ui,-apple-
 .comp-item strong{
   font-weight:700;
   color:var(--text);
-  font-size:12px;
+  font-size:11px;
 }
 .comp-item.highlight{
   background:#f0fdf4;
-  padding:6px 8px;
+  padding:4px 6px;
   margin:0 -2px;
   border-radius:4px;
   border-bottom:none;
 }
 .comp-item.highlight strong{
   color:var(--green);
-  font-size:13px;
+  font-size:12px;
 }
 
 /* Responsivo empréstimos */
 @media (max-width:1100px){
+  .loan-grid{
+    grid-template-columns:1fr;
+  }
   .result-grid{ grid-template-columns:1fr; }
   .comparator-grid{ grid-template-columns:1fr; }
-  .card-header-loan{ flex-direction:column; align-items:flex-start; gap:6px; }
-  .loan-grid{ grid-template-columns:1fr; }
+  .card-header-loan{ flex-direction:column; align-items:flex-start; gap:4px; }
 }
 
 @media (max-width:700px){
   .loan-intro{ 
     padding:12px; 
-    margin-bottom:16px; 
+    margin-bottom:14px; 
   }
   .card-header-loan h2{
-    font-size:14px;
+    font-size:13px;
   }
   .result-box{ 
-    padding:10px; 
+    padding:8px; 
   }
   .result-value{ 
-    font-size:16px; 
+    font-size:14px; 
   }
   .comp-item{ 
-    font-size:10px; 
+    font-size:9px; 
   }
   .loan-form-card, .loan-result-card{
-    padding:14px;
+    padding:12px;
+  }
+  .btn-simulate{
+    font-size:12px !important;
+    padding:8px 10px !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .app {
+    margin-left: 0;
+  }
+  
+  .sidebar {
+    position: fixed;
+    left: -320px;
+    top: 0;
+    height: 100vh;
+    width: 260px;
+    z-index: 1201;
+    transition: left 0.28s ease;
+  }
+  
+  .sidebar.open {
+    left: 0;
   }
 }
