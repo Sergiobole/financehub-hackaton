@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cashback — FinanceHub</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">FH</div>
+        <div class="brand-text">
+          <strong>FinanceHub</strong>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-item" href="index.html"><span data-feather="bar-chart-2"></span> Dashboard</a>
+        <a class="nav-item" href="extrato.html"><span data-feather="file-text"></span> Extrato</a>
+        <a class="nav-item" href="index.html"><span data-feather="grid"></span> PIX</a>
+        <a class="nav-item" href="cartoes.html"><span data-feather="credit-card"></span> Cartões</a>
+        <a class="nav-item" href="index.html"><span data-feather="shield"></span> Seguros</a>
+        <a class="nav-item" href="emprestimo.html"><span data-feather="dollar-sign"></span> Empréstimos</a>
+        <a class="nav-item active" href="cashback.html"><span data-feather="gift"></span> Cashback</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <img class="avatar" src="https://i.pravatar.cc/40?img=47" alt="avatar">
+        <div class="user-info">
+          <div class="user-name">Maria Silva</div>
+          <div class="user-email">maria@email.com</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="header">
+        <div style="display:flex;align-items:center">
+          <button id="menuToggle" class="hamburger no-print" aria-label="Abrir menu" title="Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        <div>
+           <h1>Cashback</h1>
+           <p class="subtitle">Acompanhe e resgate seus ganhos</p>
+         </div>
+        </div>
+      </header>
+      <!-- overlay mobile -->
+      <div id="mobileOverlay" class="mobile-overlay" aria-hidden="true"></div>
+
+      <!-- Grid Principal -->
+      <div class="loan-grid">
+        <!-- Saldo de Cashback -->
+        <div class="card loan-result-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="result-header">
+              <h3 style="margin:0">Saldo Disponível</h3>
+              <span class="result-badge green">✓ Ativo</span>
+            </div>
+            <div style="text-align: center; margin: 24px 0;">
+                <div class="result-label" style="font-size: 14px;">Valor total acumulado</div>
+                <div class="result-value" id="cbTotal" style="font-size: 48px; color: var(--green);">R$ 0,00</div>
+            </div>
+            <button class="btn primary" style="width:100%; font-size: 16px;">Resgatar Saldo</button>
+        </div>
+
+        <!-- Lojas Parceiras -->
+        <div class="card">
+            <div class="card-header-loan">
+                <h2>Lojas Parceiras</h2>
+            </div>
+            <ul class="tx-list">
+                <li class="tx-item"><div class="tx-left"><strong>Amazon</strong></div> <span class="badge">Até 5%</span></li>
+                <li class="tx-item"><div class="tx-left"><strong>Nike Store</strong></div> <span class="badge">Até 8%</span></li>
+                <li class="tx-item"><div class="tx-left"><strong>Posto Shell</strong></div> <span class="badge">R$ 0,10/litro</span></li>
+                <li class="tx-item"><div class="tx-left"><strong>Starbucks</strong></div> <span class="badge">Até 10%</span></li>
+            </ul>
+        </div>
+      </div>
+
+      <!-- Histórico de Cashback -->
+      <div class="card" style="margin-top: 24px;">
+        <div class="card-header-loan">
+          <h2>Histórico de Ganhos</h2>
+        </div>
+        <div id="cbHistory" class="det-list">
+          <!-- Histórico será renderizado aqui pelo JS -->
+          <p style="color: var(--muted); text-align: center; padding: 24px;">Nenhum cashback ganho ainda.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/cashback.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>feather.replace()</script>
+ </body>
+ </html>
